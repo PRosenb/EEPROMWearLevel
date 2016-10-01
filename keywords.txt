@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map For EEPROMWearLevel
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+EEPROMwl	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+getMaxDataLength	KEYWORD2
+getStartIndexEEPROM	KEYWORD2
+getCurrentIndexEEPROM	KEYWORD2
+length	KEYWORD2
+read	KEYWORD2
+update	KEYWORD2
+write	KEYWORD2
+get	KEYWORD2
+put	KEYWORD2
+putToNext	KEYWORD2
+printStatus	KEYWORD2
+printBinary	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
