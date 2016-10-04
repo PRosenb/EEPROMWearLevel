@@ -207,37 +207,37 @@ void EEPROMWearLevel::updateControlBytes(int idx, int newStartIndex, int dataLen
   }
 }
 
-void EEPROMWearLevel::printStatus() {
-  Serial.println(F("EEPROMWearLevel status: "));
+void EEPROMWearLevel::printStatus(Print &print) {
+  print.println(F("EEPROMWearLevel status: "));
   for (int index = 0; index < amountOfIndexes; index++) {
     const int controlBytesCount = getControlBytesCount(index);
-    Serial.print(index);
-    Serial.print(F(": "));
-    Serial.print(eepromConfig[index].startIndexControlBytes);
-    Serial.print(F("-"));
-    Serial.print(eepromConfig[index + 1].startIndexControlBytes);
-    Serial.print(F(" with "));
-    Serial.print(controlBytesCount);
-    Serial.print(F(" ctrl bytes at "));
-    Serial.println(eepromConfig[index].lastIndexRead);
+    print.print(index);
+    print.print(F(": "));
+    print.print(eepromConfig[index].startIndexControlBytes);
+    print.print(F("-"));
+    print.print(eepromConfig[index + 1].startIndexControlBytes);
+    print.print(F(" with "));
+    print.print(controlBytesCount);
+    print.print(F(" ctrl bytes at "));
+    print.println(eepromConfig[index].lastIndexRead);
   }
 }
 
-void EEPROMWearLevel::printBinary(int startIndex, int endIndex) {
+void EEPROMWearLevel::printBinary(Print &print, int startIndex, int endIndex) {
   for (int i = startIndex; i <= endIndex; i++) {
     const byte value = readByte(i);
-    Serial.print(i);
-    Serial.print(F(":"));
-    printBinWithLeadingZeros(value);
-    Serial.print(F("/"));
-    Serial.print(value);
-    Serial.print(F(" "));
+    print.print(i);
+    print.print(F(":"));
+    printBinWithLeadingZeros(print, value);
+    print.print(F("/"));
+    print.print(value);
+    print.print(F(" "));
     // +1 to put line break before 10, 20..
     if ((i + 1) % 10 == 0) {
-      Serial.println();
+      print.println();
     }
   }
-  Serial.println();
+  print.println();
 }
 
 const int EEPROMWearLevel::getControlBytesCount(const int idx) {
@@ -473,10 +473,10 @@ void EEPROMWearLevel::clearByteToOnes(int index) {
   SREG = u8SREG;
 }
 
-const void EEPROMWearLevel::printBinWithLeadingZeros(byte value) {
+const void EEPROMWearLevel::printBinWithLeadingZeros(Print &print, byte value) {
   byte mask = 1 << 7;
   for (int bitPosInByte = 0; bitPosInByte < 8; bitPosInByte++) {
-    Serial.print((value & mask) != 0 ? 1 : 0);
+    print.print((value & mask) != 0 ? 1 : 0);
     mask >>= 1;
   }
 }

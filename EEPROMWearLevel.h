@@ -67,7 +67,7 @@ class EEPROMWearLevel: EEPROMClass {
         @param amountOfIndexes the amount of indexes you want to use.
     */
     void begin(const byte layoutVersion, const int amountOfIndexes);
-    
+
     /**
         Initialises EEPROMWearLevel. One of the begin() methods must be called
         before any other method.
@@ -79,7 +79,7 @@ class EEPROMWearLevel: EEPROMClass {
         to use parts of the EEPROM for other purpose.
     */
     void begin(const byte layoutVersion, const int amountOfIndexes, const int eepromLengthToUse);
-    
+
     /**
         Initialises EEPROMWearLevel. One of the begin() methods must be called
         before any other method.
@@ -90,9 +90,9 @@ class EEPROMWearLevel: EEPROMClass {
         to the entries in lenths.
     */
     void begin(const byte layoutVersion, const int lengths[]);
-    
-     /**
-       Returns the amount of indexes that can be used. This value is defined by the begin() method.
+
+    /**
+      Returns the amount of indexes that can be used. This value is defined by the begin() method.
     */
     unsigned int length();
 
@@ -106,12 +106,12 @@ class EEPROMWearLevel: EEPROMClass {
        reads one byte from idx
     */
     uint8_t read(const int idx);
-    
+
     /**
        writes one byte if it is not the same as the last one.
     */
     void update(const int idx, const uint8_t val);
-    
+
     /**
        writes one byte no matter what value was written before.
     */
@@ -124,27 +124,27 @@ class EEPROMWearLevel: EEPROMClass {
     template< typename T > T &get(const int idx, T &t) {
       return getImpl(idx, t);
     }
-    
+
     /**
        writes a new value if it is not the same as the last one
     */
     template< typename T > const T &put(const int idx, const T &t) {
       return put(idx, t, true);
     }
-    
+
     /**
        writes a new value no matter what value was written before.
     */
     template< typename T > const T &putToNext(const int idx, const T &t) {
       return put(idx, t, false);
     }
-    
-   /**
-       returns the first index used to store data for this idx.
-       This method can be called to use EEPROMWEarLevel as a ring buffer.
+
+    /**
+        returns the first index used to store data for this idx.
+        This method can be called to use EEPROMWEarLevel as a ring buffer.
     */
     int getStartIndexEEPROM(const int idx);
-    
+
     /**
        returns the current read index of this idx.
         This method can be called to use EEPROMWEarLevel as a ring buffer.
@@ -152,14 +152,15 @@ class EEPROMWearLevel: EEPROMClass {
     int getCurrentIndexEEPROM(const int idx, int dataLength) ;
 
     /**
-       prints the EEPROMWearLevel status to Serial.
+       prints the EEPROMWearLevel status to print. Use Serial to
+       print to the default serial port.
     */
-    void printStatus();
-    
+    void printStatus(Print &print);
+
     /**
-       prints content of the EEPROM to Serial
+       prints content of the EEPROM to print
     */
-    void printBinary(int startIndex, int endIndex);
+    void printBinary(Print &print, int startIndex, int endIndex);
 
     /**
        Constructor of the EEPROMWearLevel. Do not call this method as there
@@ -242,10 +243,10 @@ class EEPROMWearLevel: EEPROMClass {
     */
     void clearByteToOnes(int index);
     /*
-       print the given byte to Serial in binary with adding missing zeros on the left
+       print the given byte to print in binary with adding missing zeros on the left
        and in dec after a /.
     */
-    const void printBinWithLeadingZeros(byte value);
+    const void printBinWithLeadingZeros(Print &print, byte value);
 
     /**
        print out of range error message to serial if DEBUG_LOG defined

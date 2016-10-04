@@ -11,7 +11,7 @@ void setup() {
   EEPROMwl.begin(EEPROM_LAYOUT_VERSION, AMOUNT_OF_INDEXES, 32);
 
   writeData();
-  EEPROMwl.printBinary(0, 10);
+  EEPROMwl.printBinary(Serial, 0, 10);
   readData();
 }
 
