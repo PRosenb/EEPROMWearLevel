@@ -15,14 +15,12 @@ The begin() method must be called first and lets you define how many values need
 - Can be used as ring buffer
 
 ## Installation ##
-<!---
 - The library can be installed directly in the [Arduino Software (IDE)](https://www.arduino.cc/en/Main/Software) as follows:
   - Menu Sketch->Include Library->Manage Libraries...
   - On top right in "Filter your search..." type: EEPROMWearLevel
   - The EEPROMWearLevel library will show
   - Click on it and then click "Install"
   - For more details see manual [Installing Additional Arduino Libraries](https://www.arduino.cc/en/Guide/Libraries#toc3)
-  -->
 - If you do not use the [Arduino Software (IDE)](https://www.arduino.cc/en/Main/Software):
   - [Download the latest version](https://github.com/PRosenb/EEPROMWearLevel/releases/latest)
   - Uncompress the downloaded file
