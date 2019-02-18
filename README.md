@@ -4,7 +4,7 @@ https://github.com/PRosenb/EEPROMWearLevel
 EEPROMWearLevel bases on the [EEPROM library](https://www.arduino.cc/en/Reference/EEPROM) included in the Android framework.  
 It reduces EEPROM wear by writting every new value to an other EEPROM location. The current location is stored by writing a single bit for every EEPROM location. When all are used, it starts again on the first location.  
 The begin() method must be called first and lets you define how many values need to be stored and how much of the EEPROM shall be used.  
-  
+
 ## Features ##
 - Same interface as EEPROM.h
 - Easy to use
@@ -82,103 +82,104 @@ You can also see them in the [Arduino Software (IDE)](https://www.arduino.cc/en/
 ## Reference ##
 ### Methods ###
 ```c++
-    /**
-        Initialises EEPROMWearLevel. One of the begin() methods must be called
-        before any other method.
-        This method uses the whole EEPROM for wear leveling.
-        @param layoutVersion your version of the EEPROM layout. When ever you change any value
-        on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
-        and initilize it and the EEPROM to the given values.
-        @param amountOfIndexes the amount of indexes you want to use.
-    */
-    void begin(const byte layoutVersion, const int amountOfIndexes);
-    
-    /**
-        Initialises EEPROMWearLevel. One of the begin() methods must be called
-        before any other method.
-        @param layoutVersion your version of the EEPROM layout. When ever you change any value
-        on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
-        and initilize it and the EEPROM to the given values.
-        @param amountOfIndexes the amount of indexes you want to use.
-        @param eepromLengthToUse the length of the EEPROM to use for wear leveling in case you want
-        to use parts of the EEPROM for other purpose.
-    */
-    void begin(const byte layoutVersion, const int amountOfIndexes, const int eepromLengthToUse);
-    
-    /**
-        Initialises EEPROMWearLevel. One of the begin() methods must be called
-        before any other method.
-        @param layoutVersion your version of the EEPROM layout. When ever you change any value
-        on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
-        and initilize it and the EEPROM to the given values.
-        @param lengths array of lengts to use on the EEPROM. The amount of indexes will be equals
-        to the entries in lenths.
-    */
-    void begin(const byte layoutVersion, const int lengths[]);
-    
-     /**
-       Returns the amount of indexes that can be used. This value is defined by the begin() method.
-    */
-    unsigned int length();
+/**
+    Initialises EEPROMWearLevel. One of the begin() methods must be called
+    before any other method.
+    This method uses the whole EEPROM for wear leveling.
+    @param layoutVersion your version of the EEPROM layout. When ever you change any value
+    on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
+    and initilize it and the EEPROM to the given values.
+    @param amountOfIndexes the amount of indexes you want to use.
+*/
+void begin(const byte layoutVersion, const int amountOfIndexes);
 
-    /**
-       returns the maximum size a single element can be. If the element is larger than half of
-       the maximum size, no wear levelling will be possible.
-    */
-    int getMaxDataLength(const int idx);
+/**
+    Initialises EEPROMWearLevel. One of the begin() methods must be called
+    before any other method.
+    @param layoutVersion your version of the EEPROM layout. When ever you change any value
+    on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
+    and initilize it and the EEPROM to the given values.
+    @param amountOfIndexes the amount of indexes you want to use.
+    @param eepromLengthToUse the length of the EEPROM to use for wear leveling in case you want
+    to use parts of the EEPROM for other purpose.
+*/
+void begin(const byte layoutVersion, const int amountOfIndexes, const int eepromLengthToUse);
 
-    /**
-       reads one byte from idx
-    */
-    uint8_t read(const int idx);
-    
-    /**
-       writes one byte if it is not the same as the last one.
-    */
-    void update(const int idx, const uint8_t val);
-    
-    /**
-       writes one byte no matter what value was written before.
-    */
-    void write(const int idx, const uint8_t val);
+/**
+    Initialises EEPROMWearLevel. One of the begin() methods must be called
+    before any other method.
+    @param layoutVersion your version of the EEPROM layout. When ever you change any value
+    on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
+    and initilize it and the EEPROM to the given values.
+    @param lengths array of lengts to use on the EEPROM. Must contain amountOfIndexes entries.
+    @param amountOfIndexes the amount of indexes you want to use.
+*/
+void begin(const byte layoutVersion, const int lengths[], const int amountOfIndexes);
 
-    /**
-       reads the last written value of idx or leaves t unchanged if no
-       value written yet.
-    */
-    template< typename T > T &get(const int idx, T &t);
-    
-    /**
-       writes a new value if it is not the same as the last one
-    */
-    template< typename T > const T &put(const int idx, const T &t);
-    
-    /**
-       writes a new value no matter what value was written before.
-    */
-    template< typename T > const T &putToNext(const int idx, const T &t);
-    
-   /**
-       returns the first index used to store data for this idx.
-       This method can be called to use EEPROMWEarLevel as a ring buffer.
-    */
-    int getStartIndexEEPROM(const int idx);
-    
-    /**
-       returns the current read index of this idx.
-        This method can be called to use EEPROMWEarLevel as a ring buffer.
-    */
-    int getCurrentIndexEEPROM(const int idx, int dataLength) ;
+/**
+  Returns the amount of indexes that can be used. This value is defined by the begin() method.
+*/
+unsigned int length();
 
-    /**
-       prints the EEPROMWearLevel status to Serial.
-    */
-    void printStatus();
+/**
+   returns the maximum size a single element can be. If the element is larger than half of
+   the maximum size, no wear levelling will be possible.
+*/
+int getMaxDataLength(const int idx) const;
+
+/**
+   reads one byte from idx
+*/
+uint8_t read(const int idx);
+
+/**
+   writes one byte if it is not the same as the last one.
+*/
+void update(const int idx, const uint8_t val);
+
+/**
+   writes one byte no matter what value was written before.
+*/
+void write(const int idx, const uint8_t val);
+
+/**
+   reads the last written value of idx or leaves t unchanged if no
+   value written yet.
+*/
+template< typename T > T &get(const int idx, T &t);
     
-    /**
-       prints content of the EEPROM to Serial
-    */
-    void printBinary(int startIndex, int endIndex);
+/**
+   writes a new value if it is not the same as the last one
+*/
+template< typename T > const T &put(const int idx, const T &t);
+
+/**
+   writes a new value no matter what value was written before.
+*/
+template< typename T > const T &putToNext(const int idx, const T &t);
+    
+/**
+    returns the first index used to store data for this idx.
+    This method can be called to use EEPROMWEarLevel as a ring buffer.
+*/
+int getStartIndexEEPROM(const int idx);
+
+/**
+   returns the current read index of this idx.
+    This method can be called to use EEPROMWEarLevel as a ring buffer.
+*/
+int getCurrentIndexEEPROM(const int idx, int dataLength) ;
+
+/**
+   prints the EEPROMWearLevel status to print. Use Serial to
+   print to the default serial port.
+*/
+void printStatus(Print &print);
+
+/**
+   prints content of the EEPROM to print
+*/
+void printBinary(Print &print, int startIndex, int endIndex);
 ```
 
 ## Implementation Notes ##
@@ -190,12 +191,12 @@ An empty control byte looks like this:
 
     Index:              01234567
     Bit representation: 11111111
-    
+
 Writing data of 2 bytes length changes it to (2 bits are programmed to 0 without clearing the whole byte):
 
     Index:              01234567
     Bit representation: 00111111
-    
+
 The control byte above states, that the first two indexes are used for data, the rest if free.  
 If you use larger partitions, the same is done with multiple control bytes. When all of them are marked as used (all bits 0), all bits in all control bytes of the partition are cleared what sets them back to 1.
 
@@ -204,9 +205,9 @@ EEPROMWearLevel uses one partition for every idx you use. A partition with a len
 
     EEPROM index: 0             1            2            3          4          .. 18
     Description:  layoutVersion controlByte0 controlByte1 dataIndex0 dataIndex1 .. dataIndex15
-    
+
 In this example, two of the 18 bytes in the partition are used as control bytes while the other 16 is used to store the data.
-    
+
 The 'layoutVersion' is used to clear control bytes when their position on the EEPROM is changed by using other arguments on the method 'begi()'. It is therefore important to change the 'layoutVersion' when ever a change is made of the arguments of the 'begin()' method. A change of 'layoutVersion' causes EEPROMWearLevel to reset the required control bytes so that it can use them to store the indexes.
 
 ## Contributions ##
