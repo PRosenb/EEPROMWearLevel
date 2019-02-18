@@ -77,7 +77,7 @@ unsigned int EEPROMWearLevel::length() {
   return amountOfIndexes;
 }
 
-int EEPROMWearLevel::getMaxDataLength(const int idx) {
+int EEPROMWearLevel::getMaxDataLength(const int idx) const {
 #ifndef NO_RANGE_CHECK
   if (idx >= amountOfIndexes) {
     logOutOfRange(idx);
@@ -129,7 +129,7 @@ int EEPROMWearLevel::getCurrentIndexEEPROM(const int idx, int dataLength) {
   return eepromConfig[idx].lastIndexRead + 1 - dataLength;
 }
 
-const int EEPROMWearLevel::getWriteStartIndex(const int idx, const int dataLength, const byte *values, const bool update, const int controlBytesCount) {
+int EEPROMWearLevel::getWriteStartIndex(const int idx, const int dataLength, const byte *values, const bool update, const int controlBytesCount) {
   if (dataLength > getMaxDataLength(idx)) {
 #ifdef DEBUG_LOG
     Serial.print(F("dataLength too long. Max: "));
@@ -240,7 +240,7 @@ void EEPROMWearLevel::printBinary(Print &print, int startIndex, int endIndex) {
   print.println();
 }
 
-const int EEPROMWearLevel::getControlBytesCount(const int idx) {
+int EEPROMWearLevel::getControlBytesCount(const int idx) const {
   const int length = eepromConfig[idx + 1].startIndexControlBytes - eepromConfig[idx].startIndexControlBytes;
   if ((length % 9) == 0) {
     // div exact
@@ -251,7 +251,7 @@ const int EEPROMWearLevel::getControlBytesCount(const int idx) {
   }
 }
 
-const int EEPROMWearLevel::findIndex(const EEPROMConfig &config, const int controlBytesCount) {
+int EEPROMWearLevel::findIndex(const EEPROMConfig &config, const int controlBytesCount) {
   const int startIndexData = config.startIndexControlBytes + controlBytesCount;
   const int controlByteIndex = findControlByteIndex(config.startIndexControlBytes, controlBytesCount);
   const byte currentByte = readByte(controlByteIndex);
@@ -291,7 +291,7 @@ const int EEPROMWearLevel::findIndex(const EEPROMConfig &config, const int contr
    The index is inside of control bytes even if all used.
    Does a binary search to find the index.
 */
-const int EEPROMWearLevel::findControlByteIndex(const int startIndex, const int length) {
+int EEPROMWearLevel::findControlByteIndex(const int startIndex, const int length) {
   const int endIndex = startIndex + length - 1;
   int lowerBound = startIndex;
   int upperBound = endIndex;
@@ -345,7 +345,7 @@ const int EEPROMWearLevel::findControlByteIndex(const int startIndex, const int 
   }
 }
 
-const inline byte EEPROMWearLevel::readByte(const int index) {
+inline byte EEPROMWearLevel::readByte(const int index) {
 #ifndef NO_EEPROM_WRITES
   return EEPROMClass::read(index);
 #else
@@ -472,7 +472,7 @@ void EEPROMWearLevel::clearByteToOnes(int index) {
   SREG = u8SREG;
 }
 
-const void EEPROMWearLevel::printBinWithLeadingZeros(Print &print, byte value) {
+void EEPROMWearLevel::printBinWithLeadingZeros(Print &print, const byte value) const {
   byte mask = 1 << 7;
   for (int bitPosInByte = 0; bitPosInByte < 8; bitPosInByte++) {
     print.print((value & mask) != 0 ? 1 : 0);

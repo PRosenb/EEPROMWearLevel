@@ -100,7 +100,7 @@ class EEPROMWearLevel: EEPROMClass {
        returns the maximum size a single element can be. If the element is larger than half of
        the maximum size, no wear levelling will be possible.
     */
-    int getMaxDataLength(const int idx);
+    int getMaxDataLength(const int idx) const;
 
     /**
        reads one byte from idx
@@ -196,30 +196,30 @@ class EEPROMWearLevel: EEPROMClass {
        values, update and controlBytesCount are passed in to allow comparison
        and for optimization purpose to not calculate controlBytesCount multiple times.
     */
-    const int getWriteStartIndex(const int idx, const int dataLength, const byte *values,
-                                 const bool update, const int controlBytesCount);
+    int getWriteStartIndex(const int idx, const int dataLength, const byte *values,
+                           const bool update, const int controlBytesCount);
     /**
        controlBytesCount are passed in for optimization purpose to not calculate controlBytesCount
        multiple times.
     */
     void updateControlBytes(int idx, int newStartIndex, int dataLength, const int controlBytesCount);
 
-    const int getControlBytesCount(const int index);
+    int getControlBytesCount(const int index) const;
     /**
        Finds the index by looking at the control bytes. All used bits are 0, all unused ones 1.
        controlBytesCount are passed in for optimization purpose to not calculate controlBytesCount
        multiple times.
     */
-    const int findIndex(const EEPROMConfig &config, const int controlBytesCount);
+    int findIndex(const EEPROMConfig &config, const int controlBytesCount);
     /**
        find the control byte where the current index is stored. That is the first byte
        where not all bits are 0.
     */
-    const int findControlByteIndex(const int startIndex, const int length);
+    int findControlByteIndex(const int startIndex, const int length);
     /**
        read one byte from EEPROM.
     */
-    const inline byte readByte(const int index);
+    inline byte readByte(const int index);
 
     /**
        set one bit to 0 without erasing the whole byte before.
@@ -246,12 +246,12 @@ class EEPROMWearLevel: EEPROMClass {
        print the given byte to print in binary with adding missing zeros on the left
        and in dec after a /.
     */
-    const void printBinWithLeadingZeros(Print &print, byte value);
+    void printBinWithLeadingZeros(Print &print,  const byte value) const;
 
     /**
        print out of range error message to serial if DEBUG_LOG defined
     */
-    void logOutOfRange(int idx);
+    void logOutOfRange(int idx) const;
 
     // --------------------------------------------------------
     // implementation of template methods
