@@ -304,9 +304,8 @@ class EEPROMWearLevel: EEPROMClass {
         return t;
       }
 #ifndef NO_EEPROM_WRITES
-      const T &resT = EEPROMClass::put(writeStartIndex, t);
+      EEPROMClass::put(writeStartIndex, t);
 #else
-      const T &resT = t;
       for (int i = 0; i < dataLength; i++) {
         fakeEeprom[writeStartIndex + i] = values[i];
       }

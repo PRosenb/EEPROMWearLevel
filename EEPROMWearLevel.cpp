@@ -296,7 +296,6 @@ const int EEPROMWearLevel::findControlByteIndex(const int startIndex, const int 
   int lowerBound = startIndex;
   int upperBound = endIndex;
   int midPoint = -1;
-  int index = -1;
 
   byte currentByte = 0xFF;
   while (lowerBound <= upperBound) {
@@ -481,7 +480,7 @@ const void EEPROMWearLevel::printBinWithLeadingZeros(Print &print, byte value) {
   }
 }
 
-void EEPROMWearLevel::logOutOfRange(int idx) {
+void EEPROMWearLevel::logOutOfRange(__attribute__((unused)) int idx) const {
 #ifdef DEBUG_LOG
   Serial.print(F("idx out of range: "));
   Serial.print(idx);
