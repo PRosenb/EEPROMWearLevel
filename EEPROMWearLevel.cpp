@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "EEPROMWearLevel.h"
 
-static EEPROMWearLevel EEPROMwl;
+EEPROMWearLevel EEPROMwl;
 
 EEPROMWearLevel::EEPROMWearLevel() {
   amountOfIndexes = 0;
