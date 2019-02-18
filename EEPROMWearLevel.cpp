@@ -34,14 +34,14 @@ void EEPROMWearLevel::begin(const byte layoutVersion, const int amountOfIndexes,
   init(layoutVersion);
 }
 
-void EEPROMWearLevel::begin(const byte layoutVersion, const int lengths[]) {
+void EEPROMWearLevel::begin(const byte layoutVersion, const int lengths[], const int amountOfIndexes) {
   int startIndex = 1; // index 0 reserved for the version
-  amountOfIndexes = sizeof(lengths);
+  EEPROMWearLevel::amountOfIndexes = amountOfIndexes;
   // +1 to store a place holder element in the last
   // place to get the lenth of the last element
   eepromConfig = new EEPROMConfig[amountOfIndexes + 1];
   int index;
-  for (index = 0; index < sizeof(lengths); index++) {
+  for (index = 0; index < amountOfIndexes; index++) {
     eepromConfig[index].startIndexControlBytes = startIndex;
     startIndex += lengths[index];
   }

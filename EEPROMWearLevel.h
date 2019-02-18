@@ -86,10 +86,10 @@ class EEPROMWearLevel: EEPROMClass {
         @param layoutVersion your version of the EEPROM layout. When ever you change any value
         on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
         and initilize it and the EEPROM to the given values.
-        @param lengths array of lengts to use on the EEPROM. The amount of indexes will be equals
-        to the entries in lenths.
+        @param lengths array of lengts to use on the EEPROM. Must contain amountOfIndexes entries.
+        @param amountOfIndexes the amount of indexes you want to use.
     */
-    void begin(const byte layoutVersion, const int lengths[]);
+    void begin(const byte layoutVersion, const int lengths[], const int amountOfIndexes);
 
     /**
       Returns the amount of indexes that can be used. This value is defined by the begin() method.
