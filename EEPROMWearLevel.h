@@ -188,7 +188,7 @@ class EEPROMWearLevel: EEPROMClass {
 #ifdef NO_EEPROM_WRITES
     byte fakeEeprom[FAKE_EEPROM_SIZE];
 #endif
-    unsigned int amountOfIndexes;
+    int amountOfIndexes;
 
     void init(const byte layoutVersion);
 
