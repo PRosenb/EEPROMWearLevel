@@ -85,8 +85,11 @@ class EEPROMWearLevel: EEPROMClass {
         before any other method.
         @param layoutVersion your version of the EEPROM layout. When ever you change any value
         on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
-        and initilize it and the EEPROM to the given values.
-        @param lengths array of lengts to use on the EEPROM. Must contain amountOfIndexes entries.
+        and initialise it and the EEPROM to the given values.
+        @param lengths array of the partition lengths to use on the EEPROM. The length includes the
+        control bytes so the usable length for data is smaller. You can get the max length for data
+        by calling getMaxDataLength().
+        The array must contain amountOfIndexes entries.
         @param amountOfIndexes the amount of indexes you want to use.
     */
     void begin(const byte layoutVersion, const int lengths[], const int amountOfIndexes);
@@ -322,4 +325,3 @@ class EEPROMWearLevel: EEPROMClass {
 extern EEPROMWearLevel EEPROMwl;
 
 #endif // #ifndef EEPROM_WEAR_LEVEL_H
-

@@ -110,8 +110,11 @@ void begin(const byte layoutVersion, const int amountOfIndexes, const int eeprom
     before any other method.
     @param layoutVersion your version of the EEPROM layout. When ever you change any value
     on the begin() method, the layoutVersion must be incremented. This will reset EEPROMWearLevel
-    and initilize it and the EEPROM to the given values.
-    @param lengths array of lengts to use on the EEPROM. Must contain amountOfIndexes entries.
+    and initialise it and the EEPROM to the given values.
+    @param lengths array of the partition lengths to use on the EEPROM. The length includes the
+    control bytes so the usable length for data is smaller. You can get the max length for data
+    by calling getMaxDataLength().
+    The array must contain amountOfIndexes entries.
     @param amountOfIndexes the amount of indexes you want to use.
 */
 void begin(const byte layoutVersion, const int lengths[], const int amountOfIndexes);
@@ -147,7 +150,7 @@ void write(const int idx, const uint8_t val);
    value written yet.
 */
 template< typename T > T &get(const int idx, T &t);
-    
+
 /**
    writes a new value if it is not the same as the last one
 */
@@ -157,7 +160,7 @@ template< typename T > const T &put(const int idx, const T &t);
    writes a new value no matter what value was written before.
 */
 template< typename T > const T &putToNext(const int idx, const T &t);
-    
+
 /**
     returns the first index used to store data for this idx.
     This method can be called to use EEPROMWEarLevel as a ring buffer.
