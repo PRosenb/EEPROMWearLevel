@@ -1,9 +1,14 @@
 # Arduino EEPROMWearLevel Library #
 https://github.com/PRosenb/EEPROMWearLevel
 
-EEPROMWearLevel bases on the [EEPROM library](https://www.arduino.cc/en/Reference/EEPROM) included in the Android framework.  
-It reduces EEPROM wear by writting every new value to an other EEPROM location. The current location is stored by writing a single bit for every EEPROM location. When all are used, it starts again on the first location.  
-The begin() method must be called first and lets you define how many values need to be stored and how much of the EEPROM shall be used.  
+`EEPROMWearLevel` bases on the [EEPROM library](https://www.arduino.cc/en/Reference/EEPROM) included in the Android framework.  
+It reduces `EEPROM` wear by writing every new value to an other `EEPROM` location.  
+
+To do this, the current position needs to be stored at a known location.  
+A single bit on `EEPROM` can only be changed from `1` to `0`. To change bits from `0` to `1`, the whole byte has to be erased what changes all bits to `1`. This erase process causes the main wear on the `EEPROM`.  
+`EEPROMWearLevel` uses control bytes to remember the current position when doing wear levelling and reduces wear of the control bytes by writing single bits from `1` to `0`.  
+
+The `begin()` method must be called first and lets you define how many values need to be stored and how much of the `EEPROM` shall be used. Keep in mind that `EEPROM_LAYOUT_VERSION` always needs to be changed whenever you modify the `EEPROM` layout. Failure to do so will cause `EEPROMWearLevel` to malfunction and results in corruption of data.  
 
 ## Features ##
 - Same interface as EEPROM.h
@@ -219,7 +224,7 @@ Enhancements and improvements are welcome.
 ## License ##
 ```
 Arduino EEPROMWearLevel Library
-Copyright (c) 2016 Peter Rosenberg (https://github.com/PRosenb).
+Copyright (c) 2019 Peter Rosenberg (https://github.com/PRosenb).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
