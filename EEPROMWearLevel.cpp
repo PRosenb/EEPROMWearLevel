@@ -54,7 +54,7 @@ void EEPROMWearLevel::begin(const byte layoutVersion, const int lengths[], const
 void EEPROMWearLevel::init(const byte layoutVersion) {
   const byte previousVersion = readByte(INDEX_VERSION);
 #ifndef NO_EEPROM_WRITES
-  EEPROMClass::write(INDEX_VERSION, layoutVersion);
+  EEPROMClass::update(INDEX_VERSION, layoutVersion);
 #else
   fakeEeprom[INDEX_VERSION] = layoutVersion;
 #endif
