@@ -1,3 +1,5 @@
+#if defined(ARDUINO_ARCH_AVR)
+
 #include <Arduino.h>
 #include "EEPROMWearLevel.h"
 
@@ -489,3 +491,4 @@ void EEPROMWearLevel::logOutOfRange(__attribute__((unused)) int idx) const {
 #endif
 }
 
+#endif
