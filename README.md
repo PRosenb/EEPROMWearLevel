@@ -209,7 +209,8 @@ The control byte above states, that the first two indexes are used for data, the
 If you use larger partitions, the same is done with multiple control bytes. When all of them are marked as used (all bits 0), all bits in all control bytes of the partition are cleared what sets them back to 1.
 
 ### EEPROM layout ###
-EEPROMWearLevel uses one partition for every idx you use. A partition with a length of 18 bytes is represented as follows:
+EEPROMWearLevel first uses one byte to store the version. After that, the first partition starts. For every idx you use, one partition is allocated.  
+Assuming a configuration with a single partition of 18 bytes, it will be represented in EEPROM as follows:
 
     EEPROM index: 0             1            2            3          4          .. 18
     Description:  layoutVersion controlByte0 controlByte1 dataIndex0 dataIndex1 .. dataIndex15
