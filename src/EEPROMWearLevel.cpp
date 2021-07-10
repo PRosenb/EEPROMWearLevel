@@ -71,6 +71,9 @@ void EEPROMWearLevel::init(const byte layoutVersion) {
 	}
 	// the last one as a placeholder to calculate the length of the last real element
 	eepromConfig[index].lastIndexRead = NO_DATA;
+
+	// prevent warning about not using EEPROM
+	(void)EEPROM;
 }
 
 unsigned int EEPROMWearLevel::length() {
